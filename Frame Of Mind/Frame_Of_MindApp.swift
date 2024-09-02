@@ -11,7 +11,7 @@ import SwiftUI
 struct Frame_Of_MindApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Overview()
         }
     }
 }
