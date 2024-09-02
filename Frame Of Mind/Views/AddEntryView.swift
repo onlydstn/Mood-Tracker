@@ -11,7 +11,7 @@ import SwiftData
 struct AddEntryView: View {
     @Environment(\.modelContext) private var context
     
-    @State private var selectedEmoji: String = ""
+    @State private var selectedEmoji: Moods = .happy
     @State private var title: String = ""
     @State private var bodyText: String = ""
     @State private var date: Date = Date()
@@ -75,7 +75,7 @@ struct AddEntryView: View {
     
     //MARK: - Funktion zum HInzufügen
     private func addEntry() {
-        let mood = Mood(id: UUID(), title: title, bodyText: bodyText, emoji: selectedEmoji)
+        let mood = Mood(id: UUID(), title: title, bodyText: bodyText, emoji: selectedEmoji.emoji)
         context.insert(mood)
     }
 }

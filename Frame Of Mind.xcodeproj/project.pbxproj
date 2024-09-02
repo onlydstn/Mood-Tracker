@@ -15,7 +15,7 @@
 		37529C692C85C57400DDC1F7 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37529C682C85C57400DDC1F7 /* DetailView.swift */; };
 		37529C6B2C85C96F00DDC1F7 /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37529C6A2C85C96F00DDC1F7 /* AddEntryView.swift */; };
 		37529C6D2C85D8AD00DDC1F7 /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37529C6C2C85D8AD00DDC1F7 /* Mood.swift */; };
-		37529C702C85D8EA00DDC1F7 /* MoodCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37529C6F2C85D8EA00DDC1F7 /* MoodCases.swift */; };
+		37529C702C85D8EA00DDC1F7 /* Moods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37529C6F2C85D8EA00DDC1F7 /* Moods.swift */; };
 		37529C732C85E18F00DDC1F7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37529C722C85E18F00DDC1F7 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +30,7 @@
 		37529C682C85C57400DDC1F7 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		37529C6A2C85C96F00DDC1F7 /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
 		37529C6C2C85D8AD00DDC1F7 /* Mood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
-		37529C6F2C85D8EA00DDC1F7 /* MoodCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodCases.swift; sourceTree = "<group>"; };
+		37529C6F2C85D8EA00DDC1F7 /* Moods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moods.swift; sourceTree = "<group>"; };
 		37529C722C85E18F00DDC1F7 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,7 +106,7 @@
 		37529C6E2C85D8B300DDC1F7 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				37529C6F2C85D8EA00DDC1F7 /* MoodCases.swift */,
+				37529C6F2C85D8EA00DDC1F7 /* Moods.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -189,7 +189,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37529C702C85D8EA00DDC1F7 /* MoodCases.swift in Sources */,
+				37529C702C85D8EA00DDC1F7 /* Moods.swift in Sources */,
 				37529C732C85E18F00DDC1F7 /* DataManager.swift in Sources */,
 				37529C632C85B03100DDC1F7 /* Overview.swift in Sources */,
 				37529C652C85BB2300DDC1F7 /* MoodListView.swift in Sources */,
