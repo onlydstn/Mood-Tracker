@@ -32,21 +32,35 @@ struct Overview: View {
                 }
                 .listRowSeparator(.hidden)
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        AddMoodView()
+                    } label: {
+                        Image(systemName: "plus.circle.fill")
+                    }
+                }
+            }
             .listStyle(PlainListStyle())
             .navigationTitle("Übersicht")
             
+            /*
             NavigationLink {
                 AddMoodView()
             } label: {
                 Text("Eintrag hinzufügen")
                     .font(.headline)
                     .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundStyle(Color.white)
-                    .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
+                    .frame(maxWidth: 350)
+                    .background(Color.black.opacity(0.1))
+                    .foregroundStyle(.black)
+                    .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 10)))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.black.opacity(0.5), lineWidth: 1))
                     .padding()
             }
+             */
         }
     }
     

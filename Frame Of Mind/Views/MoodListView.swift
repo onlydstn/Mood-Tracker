@@ -39,7 +39,8 @@ struct MoodListView: View {
         }
         .background(RoundedRectangle(cornerRadius: 20))
         .foregroundStyle(Color.white)
-        .shadow(color: .gray.opacity(0.3), radius: 10)
+        .shadow(color: .gray.opacity(0.5), radius: 15, x: 0, y: 0)
+        .mask(RoundedRectangle(cornerRadius: 20).padding(.top, -10))
         .padding(.horizontal, 24)
     }
 }
