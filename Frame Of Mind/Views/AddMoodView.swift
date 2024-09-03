@@ -14,25 +14,25 @@ struct AddMoodView: View {
     
     @State private var selectedButton: String = "happy"
     @State private var selectedEmoji: Moods = .happy
-    @State private var title: String = ""
     @State private var bodyText: String = ""
     @State private var date: Date = Date()
     
-    //@Binding var showingSheet: Bool
     
     //MARK: - body view
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Color.black.ignoresSafeArea()
             Circle().foregroundStyle(.white)
-                .frame(maxWidth: 300, maxHeight: 300)
+                .frame(maxWidth: 350, maxHeight: 350)
                 .blur(radius: 180)
-                .offset(x: 130, y: 130)
+                .offset(x: 150, y: 150)
             VStack {
                 topTitle
                     .padding(.leading, 8)
+                    .padding(.top, -40)
                 Spacer()
-                    .frame(maxHeight: 50)
+                    .frame(maxHeight: 30)
                 
                 moodSelection
                 
@@ -73,6 +73,7 @@ struct AddMoodView: View {
     }
     
     //MARK: - TitelView
+    
     var topTitle: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Wie fühlst du")
@@ -88,30 +89,32 @@ struct AddMoodView: View {
     }
     
     //MARK: - EmojiPicker View
+    
     var moodSelection: some View {
-            HStack(spacing: 16) {
-                ForEach(moodButton, id: \.self) { button in
-                    Button(action: {
-                        //showingSheet.toggle()
-                        selectedButton = button
-                    }) {
-                        Image(button)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: selectedButton == button ? 80 : 40, height: selectedButton == button ? 80 : 40)
-                            .opacity(selectedButton == button ? 1.0 : 0.33)
-                            .animation(.easeInOut(duration: 0.25), value: selectedButton)
-                    }
+        HStack(spacing: 16) {
+            ForEach(moodButton, id: \.self) { button in
+                Button(action: {
+                    selectedButton = button
+                }) {
+                    Image(button)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: selectedButton == button ? 80 : 40, height: selectedButton == button ? 80 : 40)
+                        .opacity(selectedButton == button ? 1.0 : 0.33)
+                        .animation(.easeInOut(duration: 0.25), value: selectedButton)
                 }
             }
-            .padding(.horizontal, 16)
+        }
+        .padding(.horizontal, 16)
     }
-    //MARK: - Funktionen
+    //MARK: - Funktionen zum Hinzufügen eines Eintrags
     
     private func addEntry() {
-        let mood = Mood(id: UUID(), title: title, bodyText: bodyText, emoji: selectedButton)
+        let mood = Mood(id: UUID(), title: moodTitle(for: selectedButton), bodyText: bodyText, emoji: Moods(rawValue: selectedButton)?.emoji ?? "")
         context.insert(mood)
     }
+    
+    //MARK: - Funktion um Beschriftung unter dem Emoji-Button zu ändern
     
     private func moodButton(for button: String) -> String {
         switch button {
@@ -131,8 +134,29 @@ struct AddMoodView: View {
             return ""
         }
     }
-}
     
-    //#Preview {
-       // AddMoodView()
-   // }
+    //MARK: - Funktion um Eintragüberschrift festzulegen
+    
+    private func moodTitle(for button: String) -> String {
+        switch button {
+        case "happy":
+            return "ein glücklicher Eintrag"
+        case "sad":
+            return "ein trauriger Eintrag"
+        case "angry":
+            return "ich bin sauer!"
+        case "excited":
+            return "ich bin aufgeregt!"
+        case "tired":
+            return "einfach nur müde..."
+        case "bored":
+            return "passiert eigentlich noch was?"
+        default:
+            return ""
+        }
+    }
+}
+
+#Preview {
+    AddMoodView()
+}

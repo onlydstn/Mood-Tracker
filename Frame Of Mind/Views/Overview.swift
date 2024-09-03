@@ -10,7 +10,6 @@ import SwiftData
 
 struct Overview: View {
     @Environment(\.modelContext) private var context
-    @State private var showingSheet = false
     
     @Query private var moods: [Mood]
     
