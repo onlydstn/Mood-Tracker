@@ -11,6 +11,7 @@ import SwiftData
 struct Overview: View {
     @Environment(\.modelContext) private var context
     @State private var showingSheet = false
+    
     @Query private var moods: [Mood]
     
     var body: some View {
@@ -34,9 +35,10 @@ struct Overview: View {
             }
             .listStyle(PlainListStyle())
             .navigationTitle("Übersicht")
-            Button(action: {
-                showingSheet.toggle()
-            }) {
+            
+            NavigationLink {
+                AddMoodView()
+            } label: {
                 Text("Eintrag hinzufügen")
                     .font(.headline)
                     .padding()
@@ -45,9 +47,6 @@ struct Overview: View {
                     .foregroundStyle(Color.white)
                     .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
                     .padding()
-            }
-            .sheet(isPresented: $showingSheet) {
-                AddEntryView(showingSheet: $showingSheet)
             }
         }
     }

@@ -44,7 +44,6 @@ struct AddEntryView: View {
                 .font(.body)
                 .padding()
                 .background(Color(.systemGray6))
-                //.shadow(color: .gray, radius: 5)
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 10)))
                 .frame(minHeight: 200)
                 .padding()
