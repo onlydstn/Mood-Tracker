@@ -15,6 +15,7 @@ struct Overview: View {
     
     var body: some View {
         NavigationStack {
+            CalendarView()
             List {
                 ForEach(moods) { mood in
                     NavigationLink(destination: DetailView(mood: mood)) {
@@ -43,24 +44,6 @@ struct Overview: View {
             }
             .listStyle(PlainListStyle())
             .navigationTitle("Übersicht")
-            
-            /*
-            NavigationLink {
-                AddMoodView()
-            } label: {
-                Text("Eintrag hinzufügen")
-                    .font(.headline)
-                    .padding()
-                    .frame(maxWidth: 350)
-                    .background(Color.black.opacity(0.1))
-                    .foregroundStyle(.black)
-                    .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 10)))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.black.opacity(0.5), lineWidth: 1))
-                    .padding()
-            }
-             */
         }
     }
     

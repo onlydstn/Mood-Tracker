@@ -39,4 +39,5 @@ struct DetailView: View {
 
 #Preview {
     DetailView(mood: Mood(title: "Testtitel", bodyText: "Das ist ein Testtext", emoji: "😃"))
+        .modelContainer(DataManager.previewContainer)
 }

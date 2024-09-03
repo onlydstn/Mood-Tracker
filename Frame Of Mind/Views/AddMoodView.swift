@@ -159,4 +159,5 @@ struct AddMoodView: View {
 
 #Preview {
     AddMoodView()
+        .modelContainer(DataManager.previewContainer)
 }

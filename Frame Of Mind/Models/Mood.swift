@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 class Mood: Identifiable {
-    var id = UUID()
+    let id = UUID()
     
     var title: String
     var bodyText: String

@@ -11,7 +11,7 @@ struct MoodListView: View {
     var mood: Mood
     
     var body: some View {
-        VStack(alignment: .leading, spacing: -16) {
+        LazyVStack(alignment: .leading, spacing: -16) {
             HStack {
                 Text(mood.emoji)
                     .font(.system(size: 50))
@@ -48,4 +48,5 @@ struct MoodListView: View {
 
 #Preview {
     MoodListView(mood: Mood(title: "Testtitel", bodyText: "Das ist ein Testtext", emoji: "😃"))
+        .modelContainer(DataManager.previewContainer)
 }
