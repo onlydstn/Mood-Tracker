@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailView: View {
     var mood: Mood
     
+    //MARK: - Detailansicht nach tap auf einen Listeneintrag
     var body: some View {
         VStack(spacing: 20) {
             HStack {

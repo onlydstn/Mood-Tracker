@@ -18,7 +18,7 @@ struct AddMoodView: View {
     @State private var date: Date = Date()
     
     
-    //MARK: - body view
+    //MARK: - Body View
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -28,13 +28,13 @@ struct AddMoodView: View {
                 .blur(radius: 180)
                 .offset(x: 150, y: 150)
             VStack {
-                topTitle
+                topTitle // Titel anzeigen
                     .padding(.leading, 8)
                     .padding(.top, -40)
                 Spacer()
                     .frame(maxHeight: 30)
                 
-                moodSelection
+                moodSelection // Emojiliste anzeigen
                 
                 Text(moodButton(for: selectedButton))
                     .font(.headline)
@@ -51,7 +51,7 @@ struct AddMoodView: View {
                     .padding()
                     .frame(maxWidth: 400, maxHeight: 400)
                 
-                Button(action: {
+                Button(action: { //Button zum Speichern eines neuen Eintrages
                     addEntry()
                 }) {
                     Text("Speichern")
@@ -88,7 +88,7 @@ struct AddMoodView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    //MARK: - EmojiPicker View
+    //MARK: - Emojiansicht View
     
     var moodSelection: some View {
         HStack(spacing: 16) {

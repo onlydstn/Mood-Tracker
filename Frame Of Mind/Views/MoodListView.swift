@@ -10,6 +10,7 @@ import SwiftUI
 struct MoodListView: View {
     var mood: Mood
     
+    //MARK: - Listeneintrag
     var body: some View {
         VStack(alignment: .leading, spacing: -16) {
             HStack {
@@ -26,7 +27,6 @@ struct MoodListView: View {
                 }
                 .foregroundStyle(Color.primary)
                 Spacer()
-                
             }
             .foregroundStyle(Color.primary)
             .padding()
@@ -35,7 +35,6 @@ struct MoodListView: View {
                 .font(.body)
                 .padding()
                 .foregroundStyle(Color.primary)
-            
         }
         .background(RoundedRectangle(cornerRadius: 20))
         .foregroundStyle(Color.white)
@@ -45,9 +44,9 @@ struct MoodListView: View {
         .padding(.horizontal, 24)
     }
 }
-
-
-#Preview {
-    MoodListView(mood: Mood(title: "Testtitel", bodyText: "Das ist ein Testtext", emoji: "😃"))
-        .modelContainer(DataManager.previewContainer)
-}
+/*
+ #Preview {
+ MoodListView(mood: Mood(title: "Testtitel", bodyText: "Das ist ein Testtext", emoji: "😃"))
+ .modelContainer(DataManager.previewContainer)
+ }
+ */
