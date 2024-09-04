@@ -10,6 +10,8 @@ import SwiftData
 
 struct AddMoodView: View {
     @Environment(\.modelContext) private var context
+    @Environment(\.presentationMode) private var dissmissAddMoodView
+    
     let moodButton = ["happy", "sad", "angry", "excited", "tired", "bored"]
     
     @State private var selectedButton: String = "happy"
@@ -112,6 +114,7 @@ struct AddMoodView: View {
     private func addEntry() {
         let mood = Mood(id: UUID(), title: moodTitle(for: selectedButton), bodyText: bodyText, emoji: Moods(rawValue: selectedButton)?.emoji ?? "")
         context.insert(mood)
+        dissmissAddMoodView.wrappedValue.dismiss()
     }
     
     //MARK: - Funktion um Beschriftung unter dem Emoji-Button zu ändern
