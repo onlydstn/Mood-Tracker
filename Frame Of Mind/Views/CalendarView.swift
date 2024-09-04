@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct CalendarView: View {
     @State private var selectedDate = Date()
     private var calendar = Calendar(identifier: .gregorian)
@@ -38,9 +36,9 @@ struct CalendarView: View {
             }
         }
         .frame(width: 360, height: 100)
-        .overlay(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)).fill(.clear).stroke(Color.blue, lineWidth: 1))
-        .background(.blue.opacity(0.10))
-        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
+//        .overlay(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)).fill(.clear).stroke(Color.blue, lineWidth: 1))
+//        .background(.blue.opacity(0.10))
+//        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
         
         .padding()
     }

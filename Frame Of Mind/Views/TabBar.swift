@@ -35,4 +35,6 @@ struct TabBar: View {
 
 #Preview {
     TabBar()
+        .modelContainer(DataManager.previewContainer)
 }
+
