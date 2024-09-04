@@ -12,36 +12,51 @@ struct CalendarView: View {
     @Binding var selectedDate: Date
     var calendar = Calendar(identifier: .gregorian)
     
+    @State private var startDate: Date = Date()
+    
     var body: some View {
-        HStack(spacing: 32) {
-            ForEach(weekDates(), id: \.self) { date in
-                VStack {
-                    Text(dayAbbreviation(for: date)) // Tag als Text
-                        .font(.subheadline)
-                        .fontWeight(isSameDay(date) ? .bold : .regular)
-                        .foregroundStyle(isSameDay(date) ? .blue : .secondary.opacity(0.5))
-                    Text(date.dayString) // Datum als Zahl
-                        .font(.title2)
-                        .fontWeight(isSameDay(date) ? .bold : .regular)
-                        .foregroundStyle(isSameDay(date) ? .blue : .secondary.opacity(0.5))
-                        .overlay(isSameDay(date) ? Capsule().stroke(Color.blue.opacity(0.75), lineWidth: 0.75).frame(width: 35, height: 45) : nil)
-                        .padding(.top, 8)
-                        .onTapGesture {
-                            withAnimation(.interpolatingSpring(duration: 0.0)) {
-                                selectedDate = date
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 32) {
+                ForEach(dates(for: startDate), id: \.self) { date in
+                    VStack {
+                        Text(dayAbbreviation(for: date))
+                            .font(.subheadline)
+                            .fontWeight(isSameDay(date) ? .bold : .regular)
+                            .foregroundStyle(isSameDay(date) ? .blue : .secondary.opacity(0.5))
+                        
+                        Text(date.dayString)
+                            .font(.title2)
+                            .fontWeight(isSameDay(date) ? .bold : .regular)
+                            .foregroundStyle(isSameDay(date) ? .blue : .secondary.opacity(0.5))
+                            .overlay(isSameDay(date) ? Capsule().stroke(Color.blue.opacity(0.75), lineWidth: 0.75).frame(width: 35, height: 45) : nil)
+                            .padding(.top, 8)
+                            .onTapGesture {
+                                withAnimation(.interpolatingSpring(duration: 0.0)) {
+                                    selectedDate = date  // Datum aktualisieren
+                                }
                             }
-                        }
-                        .shadow(color: isSameDay(date) ? .blue : .white, radius: 10)
-                        .padding(.bottom, isSameDay(date) ? 32 : 0)
+                            .shadow(color: isSameDay(date) ? .blue : .white, radius: 10)
+                            .padding(.bottom, isSameDay(date) ? 32 : 0)
+                    }
                 }
             }
+            .padding()
         }
-        .frame(width: 360, height: 100)
-        //        .overlay(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)).fill(.clear).stroke(Color.blue, lineWidth: 1))
-        //        .background(.blue.opacity(0.10))
-        //        .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)))
-        
-        .padding()
+        .onAppear { // Startdatum wird beim Laden der Ansicht gesetzt
+            startDate = calendar.startOfDay(for: Date())
+        }
+    }
+    
+    //MARK: - Funktionen
+    
+    //berechnet die Tage 7 Tage vor- und nachher für die Scrollview
+    private func dates(for startDate: Date) -> [Date] {
+        //legt die Anzahl von >Tagem vor und nach dem Startdatum fest (startDatum ist der aktuelle Tag)
+        let previousDays = -7
+        let followingDays = 7
+        return (previousDays..<followingDays).compactMap { // erstellt eine Liste von -14 bis 13 und filtert nil-Werte aus zeigt also nur gültige Werte an
+            calendar.date(byAdding: .day, value: $0, to: startDate) // verschiebt das Startdatum um die jeweiligen Werte in Tagen ($0 = Tage die zu startDate addiert oder subtrahiert werden)
+        }
     }
     
     // gibt Wochentage ab dem letzen Montag aus
