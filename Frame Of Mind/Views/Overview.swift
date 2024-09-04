@@ -13,8 +13,8 @@ struct Overview: View {
     @Query private var moods: [Mood]
     @State private var selectedDate: Date = Date()
     
-    //MARK: - Computed Property zum Filtern der Listeneinträge
-    var filteredMoods: [Mood] {
+    //MARK: - Computed Property zum Filtern der Listeneinträge nach selektiertem Datum
+    var filteredMoods: [Mood] { // speichert gefilterte Einträge
         return moods.filter { mood in
             Calendar.current.isDate(mood.date, inSameDayAs: selectedDate)
         }

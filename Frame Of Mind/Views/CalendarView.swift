@@ -8,55 +8,75 @@
 import SwiftUI
 
 struct CalendarView: View {
-    //@State private var selectedDate = Date()
     @Binding var selectedDate: Date
-    var calendar = Calendar(identifier: .gregorian)
+    
+    var calendar: Calendar = {
+        var cal = Calendar(identifier: .gregorian)
+        cal.firstWeekday = 2 // 2 ist Monatg
+        return cal
+    }()
     
     @State private var startDate: Date = Date()
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(currentMonthAndYear)
-                .font(.headline)
-                .padding(.bottom, 8)
-                .padding(.leading, 16)
-            ScrollViewReader { proxy in
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 32) {
-                        ForEach(dates(for: startDate), id: \.self) { date in
-                            VStack {
-                                Text(dayShortcut(for: date))
-                                    .font(.subheadline)
-                                    .fontWeight(isSameDay(date) ? .bold : .regular)
-                                    .foregroundStyle(isSameDay(date) ? .blue : (isWeekend(date) ? .red.opacity(0.5) : .secondary.opacity(0.5))) // Wochenendtage hervorheben
-                                
-                                Text(date.dayString)
-                                    .font(.title2)
-                                    .fontWeight(isSameDay(date) ? .bold : .regular)
-                                    .foregroundStyle(isSameDay(date) ? .blue : (isWeekend(date) ? .red.opacity(0.5) : .secondary.opacity(0.5))) // Wochenendtage hervorheben
-                                    .overlay(isSameDay(date) ? Capsule().stroke(Color.blue.opacity(0.75), lineWidth: 0.75).frame(width: 35, height: 45) : nil)
-                                    .padding(.top, 8)
-                                    .onTapGesture {
-                                        withAnimation(.interpolatingSpring(duration: 0.0)) {
-                                            selectedDate = date  // Datum aktualisieren
-                                            proxy.scrollTo(selectedDate, anchor: .center) // scrollt zum heutigen Tag
-                                        }
+            HStack {
+                Text(currentMonthAndYear)
+                    .font(.headline)
+                    .padding(.bottom, 8)
+                Spacer()
+            }
+            .padding(.leading, 16)
+            
+            HStack {
+                Spacer()
+                HStack(spacing: 24) {
+                    ForEach(weekDates(for: startDate), id: \.self) { date in
+                        VStack {
+                            Text(dayShortcut(for: date))
+                                .font(.subheadline)
+                                .fontWeight(isSameDay(date) ? .bold : .regular)
+                                .foregroundStyle(isSameDay(date) ? .blue : (isWeekend(date) ? .red.opacity(0.5) : .secondary.opacity(0.5))) // Wochenendtage hervorheben
+                            
+                            Text(date.dayString)
+                                .font(.title2)
+                                .fontWeight(isSameDay(date) ? .bold : .regular)
+                                .foregroundStyle(isSameDay(date) ? .blue : (isWeekend(date) ? .red.opacity(0.5) : .secondary.opacity(0.5))) // Wochenendtage hervorheben
+                                .overlay(isSameDay(date) ? Capsule().stroke(Color.blue, lineWidth: 1).frame(width: 35, height: 45) : nil)
+                                .padding(.top, 8)
+                                .onTapGesture {
+                                    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                                    impactHeavy.impactOccurred()
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        selectedDate = date  // Datum aktualisieren
                                     }
-                                    .shadow(color: isSameDay(date) ? .blue : .white, radius: 10)
-                                    .padding(.bottom, isSameDay(date) ? 32 : 0)
+                                }
+                                .shadow(color: isSameDay(date) ? .blue : .white, radius: 10)
+                                .padding(.bottom, isSameDay(date) ? 40 : 0)
+                        }
+                        .frame(width: 30, height: 50)
+                    }
+                }
+                Spacer()
+            }
+                .padding()
+                .gesture(
+                    DragGesture()
+                        .onEnded { value in
+                            if value.translation.width < 0 {
+                                nextWeek()
+                            } else if value.translation.width > 0 {
+                                previousWeek()
                             }
                         }
-                    }
-                    .padding()
-                }
+                )
                 .onAppear { // Startdatum wird beim Laden der Ansicht gesetzt
-                    startDate = calendar.startOfDay(for: Date())
-                    updateMonth(for: startDate)
-                    proxy.scrollTo(selectedDate, anchor: .center) // scrollt automatisch zum heutigen Tag und zeigt diesen mit anchor: .center mittig an
+                    startDate = startOfWeek(for: Date())
+                    selectedDate = Date()
                 }
             }
         }
-    }
+    
     
     //MARK: - Funktionen
     
@@ -69,22 +89,32 @@ struct CalendarView: View {
     private var currentMonthAndYear: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
-        return formatter.string(from: selectedDate)
+        return formatter.string(from: startDate)
     }
     
-    // aktualisiert den angezeigten Monat wenn Datum ausgewählt wird
-    private func updateMonth(for date: Date) {
-        selectedDate = date
-    }
-    
-    //berechnet die Tage 7 Tage vor- und nachher für die Scrollview
-    private func dates(for startDate: Date) -> [Date] {
-        //legt die Anzahl von >Tagem vor und nach dem Startdatum fest (startDatum ist der aktuelle Tag)
-        let previousDays = -7
-        let followingDays = 7
-        return (previousDays..<followingDays).compactMap { // erstellt eine Liste von -14 bis 13 und filtert nil-Werte aus zeigt also nur gültige Werte an
-            calendar.date(byAdding: .day, value: $0, to: startDate) // verschiebt das Startdatum um die jeweiligen Werte in Tagen ($0 = Tage die zu startDate addiert oder subtrahiert werden)
+    private func weekDates(for startDate: Date) -> [Date] {
+        let daysInWeek = 7
+        return (0..<daysInWeek).compactMap { day in
+            calendar.date(byAdding: .day, value: day, to: startDate)
         }
+    }
+    
+    private func startOfWeek(for date: Date) -> Date {
+        let components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date)
+        let startOfWeek = calendar.date(from: components) ?? date
+        let weekday = calendar.component(.weekday, from: startOfWeek)
+        let daysToSubtract = weekday == 1 ? 6 : weekday - 2
+        return calendar.date(byAdding: .day, value: -daysToSubtract, to: startOfWeek) ?? startOfWeek
+    }
+    
+    private func nextWeek() {
+        guard let newStartDate = calendar.date(byAdding: .day, value: 7, to: startDate) else { return }
+        startDate = newStartDate
+    }
+    
+    private func previousWeek() {
+        guard let newStartDate = calendar.date(byAdding: .day, value: -7, to: startDate) else { return }
+        startDate = newStartDate
     }
     
     // Wochentage als Abkürzung anzeigen (also So. Mo. Di etc..)
@@ -97,6 +127,7 @@ struct CalendarView: View {
         calendar.isDate(selectedDate, inSameDayAs: date)
     }
 }
+
 
 
 //#Preview {
