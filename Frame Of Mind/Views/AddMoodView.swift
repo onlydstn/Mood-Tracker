@@ -15,20 +15,26 @@ struct AddMoodView: View {
     let moodButton = ["happy", "sad", "angry", "excited", "tired", "bored"]
     
     @State private var selectedButton: String = "happy"
-    @State private var selectedEmoji: Moods = .happy
     @State private var bodyText: String = ""
     @State private var date: Date = Date()
+    private var bgColor: Color {
+        return Moods(rawValue: selectedButton)?.bgColor ?? .clear
+    }
     
     
-    //MARK: - Body View
+    //MARK: - Emotion auswählen
     
     var body: some View {
+        //MARK: - Background
         ZStack(alignment: .bottomTrailing) {
-            Color.black.ignoresSafeArea()
-            Circle().foregroundStyle(.white)
+            Color.white.ignoresSafeArea()
+            Circle().foregroundStyle(bgColor)
                 .frame(maxWidth: 350, maxHeight: 350)
-                .blur(radius: 180)
-                .offset(x: 150, y: 150)
+                .blur(radius: 150)
+                .offset(x: 120, y: 120)
+                .animation(.easeInOut(duration: 0.5), value: selectedButton)
+            
+            //MARK: - Titel
             VStack {
                 topTitle // Titel anzeigen
                     .padding(.leading, 8)
@@ -36,16 +42,18 @@ struct AddMoodView: View {
                 Spacer()
                     .frame(maxHeight: 30)
                 
-                moodSelection // Emojiliste anzeigen
+                //MARK: - Emojiliste anzeigen
+                moodSelection
                 
                 Text(moodButton(for: selectedButton))
                     .font(.headline)
-                    .foregroundStyle(.white.opacity(0.6))
+                    .foregroundStyle(.black.opacity(0.6))
                     .padding(.top, 9)
                 
+                //MARK: - TextEditor
                 TextEditor(text: $bodyText)
                     .scrollContentBackground(.hidden)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.black)
                     .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 10)))
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
@@ -53,6 +61,7 @@ struct AddMoodView: View {
                     .padding()
                     .frame(maxWidth: 400, maxHeight: 400)
                 
+                //MARK: - Button
                 Button(action: { //Button zum Speichern eines neuen Eintrages
                     addEntry()
                 }) {
@@ -61,7 +70,7 @@ struct AddMoodView: View {
                         .padding()
                         .frame(maxWidth: 350)
                         .background(Color.clear)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.black)
                         .clipShape(RoundedRectangle(cornerSize: CGSize(width: 20, height: 10)))
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
@@ -81,11 +90,11 @@ struct AddMoodView: View {
             Text("Wie fühlst du")
             HStack {
                 Text("dich Heute?")
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.black)
                     .contentTransition(.numericText())
             }
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(.black)
         .font(.largeTitle.bold())
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -159,8 +168,8 @@ struct AddMoodView: View {
         }
     }
 }
-
-#Preview {
-    AddMoodView()
-        .modelContainer(DataManager.previewContainer)
-}
+    
+    #Preview {
+        AddMoodView()
+            .modelContainer(DataManager.previewContainer)
+    }

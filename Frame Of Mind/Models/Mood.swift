@@ -23,4 +23,17 @@ class Mood: Identifiable {
         self.bodyText = bodyText
         self.emoji = emoji
     }
+    
+    // enum Moods zurückgeben um basierend auf Emoji Farbe der bordercolor zu ändern
+    var moodType: Moods {
+        switch emoji {
+        case "😊": return .happy
+        case "😢": return .sad
+        case "😡": return .angry
+        case "🤩": return .excited
+        case "😴": return .tired
+        case "😐": return .bored
+        default: return .happy
+        }
+    }
 }

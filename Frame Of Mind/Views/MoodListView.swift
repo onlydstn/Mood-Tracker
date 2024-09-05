@@ -36,11 +36,11 @@ struct MoodListView: View {
                 .padding()
                 .foregroundStyle(Color.primary)
         }
-        .background(RoundedRectangle(cornerRadius: 20))
+        .background(RoundedRectangle(cornerRadius: 15))
         .foregroundStyle(Color.white)
-        .shadow(color: .gray.opacity(0.35), radius: 15, x: 0, y: 0)
-        .mask(RoundedRectangle(cornerRadius: 20).padding(.top, -10))
-        .overlay(RoundedRectangle(cornerSize: CGSize(width: 20, height: 20)).fill(.clear).stroke(Color.gray, lineWidth: 0.25))
+        .shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: -5)
+        .mask(RoundedRectangle(cornerRadius: 15).padding(.bottom, -10))
+        .overlay(RoundedRectangle(cornerSize: CGSize(width: 15, height: 15)).stroke(mood.moodType.bgColor, lineWidth: 0.5))
         .padding(.horizontal, 24)
     }
 }

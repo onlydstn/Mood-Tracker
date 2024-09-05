@@ -10,8 +10,10 @@ import SwiftData
 
 struct Overview: View {
     @Environment(\.modelContext) private var context
-    @Query private var moods: [Mood]
+    //@Query private var moods: [Mood]
+    @Query(sort: [SortDescriptor(\Mood.date, order: .reverse)]) var moods: [Mood]
     @State private var selectedDate: Date = Date()
+    @State private var isShowing = false
     
     //MARK: - Computed Property zum Filtern der Listeneinträge nach selektiertem Datum
     var filteredMoods: [Mood] { // speichert gefilterte Einträge
@@ -26,11 +28,12 @@ struct Overview: View {
             CalendarView(selectedDate: $selectedDate)
             List {
                 ForEach(filteredMoods) { mood in // Liste filtert nach ausgewähltem Datum und zeigt nur diese Elemente an
-                    NavigationLink(destination: DetailView(mood: mood)) {
+                    Button {
+                        isShowing.toggle()
+                    } label: {
                         MoodListView(mood: mood)
-                            .frame(width: 400)
-                            .padding(.leading)
                     }
+                            .frame(width: 400)
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             deleteEntry(mood)
@@ -38,8 +41,13 @@ struct Overview: View {
                             Label("Löschen", systemImage: "trash")
                         }
                     }
+                    .sheet(isPresented: $isShowing, content: {
+                        DetailView(mood: mood)
+                            .presentationDetents([.fraction(0.4), .height(490), .large])
+                    })
                 }
                 .listRowSeparator(.hidden)
+                
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) { // Button zum Hinzufügen eines Eintrages

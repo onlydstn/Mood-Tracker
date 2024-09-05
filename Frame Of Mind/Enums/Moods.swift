@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum Moods: String, Identifiable, CaseIterable {
     case happy, sad, angry, excited, tired, bored
@@ -15,7 +16,7 @@ enum Moods: String, Identifiable, CaseIterable {
     
     var emoji: String {
         switch self {
-        case .happy: "😊"
+        case .happy: "😃"
         case .sad: "😢"
         case .angry: "😡"
         case .excited: "🤩"
@@ -33,6 +34,17 @@ enum Moods: String, Identifiable, CaseIterable {
         case .tired: "Müde"
         case .bored: "Gelangweilt"
             
+        }
+    }
+    
+    var bgColor: Color {
+        switch self {
+        case .happy: .yellow
+        case .sad: .blue
+        case .angry: .red
+        case .excited: .green
+        case .tired: .orange
+        case .bored: .black
         }
     }
 }
