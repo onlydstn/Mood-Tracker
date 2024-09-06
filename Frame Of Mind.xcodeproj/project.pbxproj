@@ -18,7 +18,6 @@
 		37529C702C85D8EA00DDC1F7 /* Moods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37529C6F2C85D8EA00DDC1F7 /* Moods.swift */; };
 		37529C732C85E18F00DDC1F7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37529C722C85E18F00DDC1F7 /* DataManager.swift */; };
 		376D00DB2C86EDF40087708D /* AddMoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376D00DA2C86EDF40087708D /* AddMoodView.swift */; };
-		379771232C875B930080C1BB /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379771222C875B930080C1BB /* TabBar.swift */; };
 		379771252C875CD10080C1BB /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379771242C875CD10080C1BB /* ChartView.swift */; };
 		379771272C875FAE0080C1BB /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379771262C875FAE0080C1BB /* CalendarView.swift */; };
 		3797712A2C8765DA0080C1BB /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379771292C8765DA0080C1BB /* Date.swift */; };
@@ -38,7 +37,6 @@
 		37529C6F2C85D8EA00DDC1F7 /* Moods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moods.swift; sourceTree = "<group>"; };
 		37529C722C85E18F00DDC1F7 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		376D00DA2C86EDF40087708D /* AddMoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoodView.swift; sourceTree = "<group>"; };
-		379771222C875B930080C1BB /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		379771242C875CD10080C1BB /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		379771262C875FAE0080C1BB /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		379771292C8765DA0080C1BB /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -98,7 +96,6 @@
 		37529C602C85AFF400DDC1F7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				379771222C875B930080C1BB /* TabBar.swift */,
 				37529C622C85B03100DDC1F7 /* Overview.swift */,
 				37529C642C85BB2300DDC1F7 /* MoodListView.swift */,
 				37529C682C85C57400DDC1F7 /* DetailView.swift */,
@@ -212,7 +209,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				379771232C875B930080C1BB /* TabBar.swift in Sources */,
 				373515942C8AFAC700D31C42 /* ListView.swift in Sources */,
 				37529C702C85D8EA00DDC1F7 /* Moods.swift in Sources */,
 				376D00DB2C86EDF40087708D /* AddMoodView.swift in Sources */,

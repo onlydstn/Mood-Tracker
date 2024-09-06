@@ -43,20 +43,7 @@ struct CalendarView: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(.ultraThinMaterial)
                 .stroke(.gray, lineWidth: 0.3)
-            //.padding(.horizontal, 8)
                 .frame(width: 364, height: 100)
-            
-            //                HStack {
-            //                    Image(systemName: "arrow.left")
-            //                        .padding(.top, 90)
-            //                        .padding(.leading, 15)
-            //                        .foregroundStyle(.gray.opacity(0.8))
-            //                    Spacer()
-            //                    Image(systemName: "arrow.right")
-            //                        .padding(.top, 90)
-            //                        .padding(.trailing, 15)
-            //                        .foregroundStyle(.gray)
-            //                }
             
             HStack {
                 Spacer()
@@ -74,7 +61,6 @@ struct CalendarView: View {
                                 .fontWeight(isSameDay(date) ? .bold : .regular)
                                 .foregroundStyle(isSameDay(date) ? .blue : (isWeekend(date) ? .red.opacity(0.5) : .secondary.opacity(0.5))) // Wochenendtage hervorheben
                                 .overlay(isSameDay(date) ? Capsule().stroke(Color.blue, lineWidth: 1).frame(width: 35, height: 45) : nil)
-                            //.padding(.bottom, 16)
                                 .onTapGesture {
                                     let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
                                     impactHeavy.impactOccurred()
