@@ -8,6 +8,7 @@
 import SwiftUI
 
 @main
+
 struct Frame_Of_MindApp: App {
     var body: some Scene {
         WindowGroup {

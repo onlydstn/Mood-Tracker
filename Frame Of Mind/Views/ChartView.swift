@@ -83,20 +83,20 @@ struct ChartView: View {
         Spacer()
     }
 }
-    
-    
-    //MARK: - Funktionen
-    func colorForMood(_ emoji: String) -> Color {
-        switch emoji {
-        case "😃": return .yellow
-        case "😢": return .blue
-        case "😡": return .red
-        case "🤩": return .green
-        case "😴": return .orange
-        case "😐": return .black
-        default: return .gray
-        }
+
+
+//MARK: - Funktionen
+func colorForMood(_ emoji: String) -> Color {
+    switch emoji {
+    case "😃": return .yellow
+    case "😢": return .blue
+    case "😡": return .red
+    case "🤩": return .green
+    case "😴": return .orange
+    case "😐": return .black
+    default: return .gray
     }
+}
 
 
 

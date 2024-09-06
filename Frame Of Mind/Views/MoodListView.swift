@@ -9,39 +9,43 @@ import SwiftUI
 
 struct MoodListView: View {
     var mood: Mood
+    @State private var isShowing = false
     
     //MARK: - Listeneintrag
     var body: some View {
-        VStack(alignment: .leading, spacing: -16) {
-            HStack {
-                Text(mood.emoji)
-                    .font(.system(size: 50))
-                
-                VStack(alignment: .leading) {
-                    Text(mood.title)
-                        .font(.headline)
+        Button {
+            isShowing.toggle()
+        } label: {
+            VStack {
+                HStack {
+                    Text(mood.emoji)
+                        .font(.system(size: 50))
                     
-                    Text(mood.date.formatted())
-                        .font(.subheadline)
-                        .foregroundStyle(.gray.opacity(0.8))
+                    VStack {
+                        Text(mood.title)
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text(mood.date.formatted())
+                            .font(.subheadline)
+                            .foregroundStyle(.gray.opacity(0.8))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 }
-                .foregroundStyle(Color.primary)
-                Spacer()
+                
+                Text(mood.bodyText)
+                    .font(.body)
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .foregroundStyle(Color.primary)
-            .padding()
-            
-            Text(mood.bodyText)
-                .font(.body)
-                .padding()
-                .foregroundStyle(Color.primary)
+            .padding(16)
+            .background(.white)
+            .overlay(RoundedRectangle(cornerRadius: 15).stroke(mood.moodType.bgColor, lineWidth: 0.5).shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 5))
         }
-        .background(RoundedRectangle(cornerRadius: 15))
-        .foregroundStyle(Color.white)
-        .shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: -5)
-        .mask(RoundedRectangle(cornerRadius: 15).padding(.bottom, -10))
-        .overlay(RoundedRectangle(cornerSize: CGSize(width: 15, height: 15)).stroke(mood.moodType.bgColor, lineWidth: 0.5))
-        .padding(.horizontal, 24)
+        .sheet(isPresented: $isShowing) {
+            DetailView(mood: mood)
+                .presentationDetents([.fraction(0.4), .height(490), .large])
+        }
     }
 }
 /*

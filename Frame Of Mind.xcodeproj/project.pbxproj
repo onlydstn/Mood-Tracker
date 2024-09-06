@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		373515942C8AFAC700D31C42 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373515932C8AFAC700D31C42 /* ListView.swift */; };
 		37529C522C85AFA000DDC1F7 /* Frame_Of_MindApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37529C512C85AFA000DDC1F7 /* Frame_Of_MindApp.swift */; };
 		37529C562C85AFA200DDC1F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37529C552C85AFA200DDC1F7 /* Assets.xcassets */; };
 		37529C5A2C85AFA200DDC1F7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37529C592C85AFA200DDC1F7 /* Preview Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		373515932C8AFAC700D31C42 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		37529C4E2C85AFA000DDC1F7 /* Frame Of Mind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Frame Of Mind.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37529C512C85AFA000DDC1F7 /* Frame_Of_MindApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frame_Of_MindApp.swift; sourceTree = "<group>"; };
 		37529C552C85AFA200DDC1F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				376D00DA2C86EDF40087708D /* AddMoodView.swift */,
 				379771242C875CD10080C1BB /* ChartView.swift */,
 				379771262C875FAE0080C1BB /* CalendarView.swift */,
+				373515932C8AFAC700D31C42 /* ListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				379771232C875B930080C1BB /* TabBar.swift in Sources */,
+				373515942C8AFAC700D31C42 /* ListView.swift in Sources */,
 				37529C702C85D8EA00DDC1F7 /* Moods.swift in Sources */,
 				376D00DB2C86EDF40087708D /* AddMoodView.swift in Sources */,
 				379771252C875CD10080C1BB /* ChartView.swift in Sources */,

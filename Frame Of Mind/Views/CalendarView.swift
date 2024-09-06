@@ -37,77 +37,77 @@ struct CalendarView: View {
             }
             .padding(.leading, 16)
         }
+        
+        //MARK: - Kalender
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(.ultraThinMaterial)
+                .stroke(.gray, lineWidth: 0.3)
+            //.padding(.horizontal, 8)
+                .frame(width: 364, height: 100)
             
-            //MARK: - Kalender
-            ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.ultraThinMaterial)
-                    .stroke(.gray, lineWidth: 0.3)
-                    //.padding(.horizontal, 8)
-                    .frame(width: 364, height: 100)
-                
-//                HStack {
-//                    Image(systemName: "arrow.left")
-//                        .padding(.top, 90)
-//                        .padding(.leading, 15)
-//                        .foregroundStyle(.gray.opacity(0.8))
-//                    Spacer()
-//                    Image(systemName: "arrow.right")
-//                        .padding(.top, 90)
-//                        .padding(.trailing, 15)
-//                        .foregroundStyle(.gray)
-//                }
-                
-                HStack {
-                    Spacer()
-                    HStack(spacing: 24) {
-                        ForEach(weekDates(for: startDate), id: \.self) { date in
-                            VStack {
-                                Text(dayShortcut(for: date))
-                                    .padding(.bottom, 8)
-                                    .font(.subheadline)
-                                    .fontWeight(isSameDay(date) ? .bold : .regular)
-                                    .foregroundStyle(isSameDay(date) ? .blue : (isWeekend(date) ? .red.opacity(0.5) : .secondary.opacity(0.5))) // Wochenendtage hervorheben
-                                
-                                Text(date.dayString)
-                                    .font(.title2)
-                                    .fontWeight(isSameDay(date) ? .bold : .regular)
-                                    .foregroundStyle(isSameDay(date) ? .blue : (isWeekend(date) ? .red.opacity(0.5) : .secondary.opacity(0.5))) // Wochenendtage hervorheben
-                                    .overlay(isSameDay(date) ? Capsule().stroke(Color.blue, lineWidth: 1).frame(width: 35, height: 45) : nil)
-                                    //.padding(.bottom, 16)
-                                    .onTapGesture {
-                                        let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
-                                        impactHeavy.impactOccurred()
-                                        withAnimation(.easeInOut(duration: 0.3)) {
-                                            selectedDate = date  // Datum aktualisieren
-                                        }
-                                    }
-                                    .shadow(color: isSameDay(date) ? .blue : .white, radius: 10)
-                                    .padding(.bottom, isSameDay(date) ? 40 : 0)
-                            }
-                            .frame(width: 30, height: 50)
+            //                HStack {
+            //                    Image(systemName: "arrow.left")
+            //                        .padding(.top, 90)
+            //                        .padding(.leading, 15)
+            //                        .foregroundStyle(.gray.opacity(0.8))
+            //                    Spacer()
+            //                    Image(systemName: "arrow.right")
+            //                        .padding(.top, 90)
+            //                        .padding(.trailing, 15)
+            //                        .foregroundStyle(.gray)
+            //                }
+            
+            HStack {
+                Spacer()
+                HStack(spacing: 24) {
+                    ForEach(weekDates(for: startDate), id: \.self) { date in
+                        VStack {
+                            Text(dayShortcut(for: date))
+                                .padding(.bottom, 8)
+                                .font(.subheadline)
+                                .fontWeight(isSameDay(date) ? .bold : .regular)
+                                .foregroundStyle(isSameDay(date) ? .blue : (isWeekend(date) ? .red.opacity(0.5) : .secondary.opacity(0.5))) // Wochenendtage hervorheben
                             
+                            Text(date.dayString)
+                                .font(.title2)
+                                .fontWeight(isSameDay(date) ? .bold : .regular)
+                                .foregroundStyle(isSameDay(date) ? .blue : (isWeekend(date) ? .red.opacity(0.5) : .secondary.opacity(0.5))) // Wochenendtage hervorheben
+                                .overlay(isSameDay(date) ? Capsule().stroke(Color.blue, lineWidth: 1).frame(width: 35, height: 45) : nil)
+                            //.padding(.bottom, 16)
+                                .onTapGesture {
+                                    let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                                    impactHeavy.impactOccurred()
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        selectedDate = date  // Datum aktualisieren
+                                    }
+                                }
+                                .shadow(color: isSameDay(date) ? .blue : .white, radius: 10)
+                                .padding(.bottom, isSameDay(date) ? 40 : 0)
                         }
+                        .frame(width: 30, height: 50)
+                        
                     }
-                    Spacer()
                 }
+                Spacer()
             }
-                .padding()
-                .gesture( // Swipegeste um angezeigtwe Woche vor oder zurück zu wischen
-                    DragGesture()
-                        .onEnded { value in
-                            if value.translation.width < 0 {
-                                nextWeek()
-                            } else if value.translation.width > 0 {
-                                previousWeek()
-                            }
-                        }
-                )
-                .onAppear { // Startdatum wird beim Laden der Ansicht gesetzt
-                    startDate = startOfWeek(for: Date())
-                    selectedDate = Date()
+        }
+        .padding()
+        .gesture( // Swipegeste um angezeigtwe Woche vor oder zurück zu wischen
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width < 0 {
+                        nextWeek()
+                    } else if value.translation.width > 0 {
+                        previousWeek()
+                    }
                 }
-            }
+        )
+        .onAppear { // Startdatum wird beim Laden der Ansicht gesetzt
+            startDate = startOfWeek(for: Date())
+            selectedDate = Date()
+        }
+    }
     
     
     //MARK: - Funktionen
