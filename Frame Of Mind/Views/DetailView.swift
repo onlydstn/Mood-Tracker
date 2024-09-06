@@ -27,6 +27,8 @@ struct DetailView: View {
                 Spacer()
             }
             .padding()
+            Divider()
+                .padding(.top, -25)
             
             Text(mood.bodyText)
                 .font(.body)
@@ -39,6 +41,6 @@ struct DetailView: View {
 }
 
 #Preview {
-    DetailView(mood: Mood(id: UUID(), title: "Testtitel", bodyText: "Das ist ein Testtext", emoji: "😃"))
+    DetailView(mood: Mood(id: UUID(), title: "Testtitel", bodyText: "Das ist ein Testtext", emoji: "😃", date: Date()))
         .modelContainer(DataManager.previewContainer)
 }

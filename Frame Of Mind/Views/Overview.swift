@@ -10,10 +10,11 @@ import SwiftData
 
 struct Overview: View {
     @Environment(\.modelContext) private var context
-    //@Query private var moods: [Mood]
     @Query(sort: [SortDescriptor(\Mood.date, order: .reverse)]) var moods: [Mood]
     @State private var selectedDate: Date = Date()
-    @State private var isShowing = false
+    @State private var selectedMood: Mood?
+    
+    private var currentDate: Date = Date()
     
     //MARK: - Computed Property zum Filtern der Listeneinträge nach selektiertem Datum
     var filteredMoods: [Mood] { // speichert gefilterte Einträge
@@ -25,15 +26,16 @@ struct Overview: View {
     //MARK: - Body View
     var body: some View {
         NavigationStack {
+
             CalendarView(selectedDate: $selectedDate)
             List {
                 ForEach(filteredMoods) { mood in // Liste filtert nach ausgewähltem Datum und zeigt nur diese Elemente an
                     Button {
-                        isShowing.toggle()
+                            selectedMood = mood
                     } label: {
                         MoodListView(mood: mood)
                     }
-                            .frame(width: 400)
+                    .frame(width: 400)
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             deleteEntry(mood)
@@ -41,10 +43,10 @@ struct Overview: View {
                             Label("Löschen", systemImage: "trash")
                         }
                     }
-                    .sheet(isPresented: $isShowing, content: {
-                        DetailView(mood: mood)
-                            .presentationDetents([.fraction(0.4), .height(490), .large])
-                    })
+                    .sheet(item: $selectedMood) { mood in
+                            DetailView(mood: mood)
+                                .presentationDetents([.fraction(0.4), .height(490), .large])
+                    }
                 }
                 .listRowSeparator(.hidden)
                 
@@ -52,7 +54,7 @@ struct Overview: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) { // Button zum Hinzufügen eines Eintrages
                     NavigationLink {
-                        AddMoodView()
+                        AddMoodView(selectedDate: selectedDate)
                     } label: {
                         Image(systemName: "plus.circle.fill")
                     }
@@ -69,8 +71,9 @@ struct Overview: View {
     }
 }
 
-
-#Preview {
-    Overview()
-        .modelContainer(DataManager.previewContainer)
-}
+/*
+ #Preview {
+ Overview()
+ .modelContainer(DataManager.previewContainer)
+ }
+ */

@@ -15,13 +15,14 @@ class Mood: Identifiable {
     var title: String
     var bodyText: String
     var emoji: String
-    var date: Date = Date()
+    var date: Date
     
-    init(id: UUID = UUID(), title: String, bodyText: String, emoji: String) {
+    init(id: UUID = UUID(), title: String, bodyText: String, emoji: String, date: Date) {
         self.id = id
         self.title = title
         self.bodyText = bodyText
         self.emoji = emoji
+        self.date = date
     }
     
     // enum Moods zurückgeben um basierend auf Emoji Farbe der bordercolor zu ändern

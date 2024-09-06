@@ -13,13 +13,15 @@ struct AddMoodView: View {
     @Environment(\.presentationMode) private var dissmissAddMoodView
     
     let moodButton = ["happy", "sad", "angry", "excited", "tired", "bored"]
+    var selectedDate: Date
+    private var bgColor: Color {
+        return Moods(rawValue: selectedButton)?.bgColor ?? .clear
+    }
     
     @State private var selectedButton: String = "happy"
     @State private var bodyText: String = ""
     @State private var date: Date = Date()
-    private var bgColor: Color {
-        return Moods(rawValue: selectedButton)?.bgColor ?? .clear
-    }
+    @State private var showErrorAlert = false
     
     
     //MARK: - Emotion auswählen
@@ -118,13 +120,33 @@ struct AddMoodView: View {
         }
         .padding(.horizontal, 16)
     }
-    //MARK: - Funktionen zum Hinzufügen eines Eintrags
     
-    private func addEntry() {
-        let mood = Mood(id: UUID(), title: moodTitle(for: selectedButton), bodyText: bodyText, emoji: Moods(rawValue: selectedButton)?.emoji ?? "")
-        context.insert(mood)
-        dissmissAddMoodView.wrappedValue.dismiss()
+    //MARK: - Datum und Uhrzeit kombinieren um 
+    private func combine(date: Date, with time: Date) -> Date {
+        let calendar = Calendar.current
+            let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+            let timeComponents = calendar.dateComponents([.hour, .minute, .second], from: time)
+            
+            var combinedComponents = DateComponents()
+            combinedComponents.year = dateComponents.year
+            combinedComponents.month = dateComponents.month
+            combinedComponents.day = dateComponents.day
+            combinedComponents.hour = timeComponents.hour
+            combinedComponents.minute = timeComponents.minute
+            combinedComponents.second = timeComponents.second
+            
+            return calendar.date(from: combinedComponents) ?? date
     }
+    
+    //MARK: - Funktionen zum Hinzufügen eines Eintrags
+    private func addEntry() {
+        let currentDate = Date() // aktuelles Datum mit Uhrzeit
+        let endDate = combine(date: selectedDate, with: currentDate)
+        
+        let mood = Mood(id: UUID(), title: moodTitle(for: selectedButton), bodyText: bodyText, emoji: Moods(rawValue: selectedButton)?.emoji ?? "", date: endDate)
+            context.insert(mood)
+            dissmissAddMoodView.wrappedValue.dismiss()
+        }
     
     //MARK: - Funktion um Beschriftung unter dem Emoji-Button zu ändern
     
@@ -170,6 +192,6 @@ struct AddMoodView: View {
 }
     
     #Preview {
-        AddMoodView()
+        AddMoodView(selectedDate: Date())
             .modelContainer(DataManager.previewContainer)
     }

@@ -24,7 +24,7 @@ class DataManager {
             let container = try ModelContainer(for: Mood.self, configurations: config)
             
             for number in 1...1 {
-                let mood = Mood(title: "Testtitel", bodyText: "Das ist ein Testtext für den Inhalt", emoji: "😃")
+                let mood = Mood(title: "Testtitel", bodyText: "Das ist ein Testtext für den Inhalt", emoji: "😃", date: Date())
                 container.mainContext.insert(mood)
             }
             
