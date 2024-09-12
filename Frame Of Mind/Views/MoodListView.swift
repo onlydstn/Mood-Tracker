@@ -39,8 +39,10 @@ struct MoodListView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(16)
-            .background(.white)
-            .overlay(RoundedRectangle(cornerRadius: 15).stroke(mood.moodType.bgColor, lineWidth: 0.5).shadow(color: .gray.opacity(0.5), radius: 10, x: 0, y: 5))
+            .overlay(RoundedRectangle(cornerRadius: 15).stroke(mood.moodType.bgColor, lineWidth: 1))
+            //.overlay(RoundedRectangle(cornerRadius: 15).stroke(.black, lineWidth: 0.3))
+            .background(mood.moodType.bgColor.opacity(0.3))
+            .clipShape(RoundedRectangle(cornerRadius: 15))
         }
         .sheet(isPresented: $isShowing) {
             DetailView(mood: mood)

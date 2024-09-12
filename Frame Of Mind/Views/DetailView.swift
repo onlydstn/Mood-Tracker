@@ -34,13 +34,14 @@ struct DetailView: View {
                 .font(.body)
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
+                .padding(.top, -50)
             Spacer()
         }
     }
 }
 
-#Preview {
-    DetailView(mood: Mood(id: UUID(), title: "Testtitel", bodyText: "Das ist ein Testtext", emoji: "😃", date: Date()))
-        .modelContainer(DataManager.previewContainer)
-}
+ #Preview {
+ DetailView(mood: Mood(id: UUID(), title: "Testtitel", bodyText: "Das ist ein Testtext", emoji: "😃", date: Date()))
+ .modelContainer(DataManager.previewContainer)
+ }
+ 
